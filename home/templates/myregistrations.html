@@ -1,0 +1,32 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="container">
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Registration Id</th>
+        <th scope="col">Event Id</th>
+        <th scope="col">Event Name</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if evnts is iterable%}
+    <tr>
+        <th scope="row">{{evnts.regid}}</th>
+        <td>{{evnts.evntid}}</td>
+        <td>{{evnts.ename}}</td>
+      </tr>
+      {%else%}
+      {%for evnts in evnts%}
+      <tr>
+        <th scope="row">{{evnts.regid}}</th>
+        <td>{{evnts.evntid}}</td>
+        <td>{{evnts.ename}}</td>
+      </tr>
+      {%endfor%}
+      {%endif%}
+
+</tbody>
+  </table>
+</div>
+{%endblock%}

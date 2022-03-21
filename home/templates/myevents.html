@@ -1,0 +1,42 @@
+{%extends 'orgbase.html'%}
+{%block content%}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Event Name</th>
+        <th scope="col">Event Type</th>
+        <th scope="col">Event price</th>
+        <th scope="col">Event place</th>
+        <th scope="col">Event Date</th>
+        <th scope="col">Event Time</th>
+        <th scope="col">Event Description</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if evnts is iterable%}
+    <tr>
+        <th scope="row">{{evnts.ename}}</th>
+        <td>{{evnts.etype}}</td>
+        <td>{{evnts.amount}}</td>
+        <td>{{evnts.place}}</td>
+        <td>{{evnts.edate}}</td>
+        <td>{{evnts.etime}}</td>
+        <td>{{evnts.edesc}}</td>
+      </tr>
+      {%else%}
+      {%for evnt in evnts%}
+      <tr>
+        <th scope="row">{{evnt.ename}}</th>
+        <td>{{evnt.etype}}</td>
+        <td>{{evnt.amount}}</td>
+        <td>{{evnt.place}}</td>
+        <td>{{evnt.edate}}</td>
+        <td>{{evnt.etime}}</td>
+        <td>{{evnt.edesc}}</td>
+      </tr>
+      {%endfor%}
+      {%endif%}
+
+</tbody>
+  </table>
+{%endblock%}

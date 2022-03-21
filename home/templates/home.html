@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="container d-flex mt-3">
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {%for evnt in evnt%}
+    <div class="col">
+        <div class="card border-dark mb-3 " style="max-width: 25rem; max-height:30rem;">
+            <div class="card-header">Events</div>
+            <div class="card-body text-dark">
+              <h5 class="card-title ">{{evnt.ename}}</h5>
+              <hr>
+              <p class="card-text d-inline-block"><h6 class="d-inline-block">Event Name:</h6> {{evnt.etype}}</p>
+              <p class="card-text d-inline-block"><h6 class="d-inline-block">Event Place:</h6> {{evnt.place}}</p>
+              <p class="card-text d-inline-block"><h6 class="d-inline-block">Event Date:</h6> {{evnt.edate}}</p>
+              <p class="card-text d-inline-block"><h6 class="d-inline-block">Event Time:</h6> {{evnt.etime}}</p>
+              <p class="card-text d-inline-block"><h6 class="d-inline-block">Event Fee:</h6> {{evnt.amount}}</p>
+              <p class="card-text d-inline-block"><h6 class="d-inline-block">Description:</h6> {{evnt.edesc}}</p>
+            </div>
+            <a href="evntregiser/?evntid={{evnt.evntid}}" class="btn btn-primary">Register</a>
+          </div>
+    </div>
+    {%endfor%}
+  </div>
+{%endblock%}

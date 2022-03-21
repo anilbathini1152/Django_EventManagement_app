@@ -1,0 +1,115 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="row">
+    <div class="col-sm-4"></div>
+<div class="col-sm-4 mt-4">
+    <div class="card" >
+        <img class="card-img-top rounded-circle mx-auto mt-2" src="/media/media/default.png" alt="Card image cap" style="width: 50%;">
+        <div class="card-body">
+          <div><input type="file" style="visibility:hidden;display:none" id='profile'>
+            <label for="profile"><i class="fas fa-upload"></i></label>
+            </div>
+          
+          <hr>
+          <h5 class="card-title">Profile  </h5>
+          <p class="card-text d-inline-block"><h6 class="d-inline-block">Username : </h6>  {{user.username}}</p>
+          <p class="card-text d-inline-block"><h6 class="d-inline-block">Name : </h6> {{user.first_name}} {{user.last_name}}</p>
+          <p class="card-text d-inline-block"><h6 class="d-inline-block">Email : </h6> {{user.email}}</p>
+          <hr>
+          {%for usr in usr%}
+          <p class="card-text d-inline-block"><h6 class="d-inline-block">Date Of Birth : </h6> {{usr.dob}}</p>
+          <p class="card-text d-inline-block"><h6 class="d-inline-block">Gender : </h6> {{usr.gender}}</p>
+          <p class="card-text d-inline-block"><h6 class="d-inline-block">Contact No : </h6> {{usr.contact}}</p>
+          {%endfor%}
+          <!-- &ensp;&ensp; -->
+          <!-- <a href="#" class="btn btn-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#passwrdchnge">Change Password</a> -->
+          <!-- &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; -->
+          <a  class="btn btn-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#updateoprof">Update Profile</a>
+        </div>
+      </div>
+</div>
+<div class="col-sm-4"></div>
+</div>
+
+<!--Update profile modal -->
+<div class="modal fade" id="updateoprof" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <!-- login form -->
+       <form action="usrprofupdate" method="POST">
+        {% csrf_token %}
+          <div class="row mb-3">
+              <label for="cntctno" class="col-sm-3 col-form-label">Contact No</label>
+              <div class="col-sm-9">
+                <input type="number" class="form-control" placeholder="Contact No" name="cntctno" required>
+              </div>
+            </div>
+          
+          <div class="row mb-3">
+            <label for="dob" class="col-sm-3 col-form-label" required>DOB</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control" placeholder="Date of birth" name="dob">
+            </div>
+          </div>
+          <fieldset class="row mb-3">
+            <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gendr" id="gridRadios1" value="Male" checked>
+                <label class="form-check-label" for="gridRadios1">
+                  Male
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gendr" id="gridRadios2" value="Female" >
+                <label class="form-check-label" for="gridRadios2">
+                  Female
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          
+          <button type="submit" class="btn btn-primary align-right position-end">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+ </div>
+
+ <!--Password change modal -->
+<div class="modal fade" id="passwrdchnge" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <!-- Password change  form -->
+       <form action="/organiser/cpasswd" method="POST">
+        {% csrf_token %}
+          
+          <div class="row mb-3">
+            <label for="nwpassword" class="col-sm-3 col-form-label" required>New Password</label>
+            <div class="col-sm-9">
+              <input type="password" class="form-control" placeholder="##" name="nwpassword">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="cpassword" class="col-sm-3 col-form-label" required>Confirm New Password</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="##" name="cpassword">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary align-right position-end">Change Password</button>
+        </form>
+      </div>
+    </div>
+  </div>
+ </div>
+{%endblock%}

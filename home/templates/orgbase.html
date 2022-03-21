@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/0f67ca7e88.js" crossorigin="anonymous"></script>
+</head>
+<style>
+ 
+</style>
+<body class="overflow-visible">
+ <div >
+     <!-- heading  -->
+  <div class="jumbotron text-center bg-secondary">
+    <h3 class="text-light mx-auto font-italic pt-1 pb-3 mb-0">Event Management System</h3>
+  </div>
+  <!-- navbar -->
+  <div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">  
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/organiser/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact Us</a>
+            </li>
+            {%if user.is_authenticated%}
+            <li class="nav-item">
+                <a class="nav-link" href="/organiser/addevents" >Add Event</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/organiser/myevents" >My Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/organiser/orgprof" >My Profile</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout" >Logout</a>
+            </li>
+            {%else%}
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginmodal">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#signupmodal">Signup</a>
+            </li>
+            {%endif%}
+          
+              
+          </ul>
+        </div>
+
+
+       
+  
+  
+
+     
+
+  <!-- Search -->
+        <!-- <div class="input-group input-group-sm mb-3 " style="width: 50%;">
+            <input type="text" class="form-control" placeholder="Search">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="submit">Go</button>
+            </div>
+          </div>
+      </nav>
+  </div> -->
+<!-- navbar close -->
+ </div>
+
+
+ <!--User Login Modal -->
+ <div class="modal fade" id="loginmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">User Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <!-- login form -->
+       <form action="/login" method="POST">
+        {% csrf_token %}
+        <fieldset class="row mb-3">
+          <legend class="col-form-label col-sm-2 pt-0">Category</legend>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="category" id="gridRadios1" value="1" >
+              <label class="form-check-label" for="gridRadios1">
+                Organiser
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="category" id="gridRadios2" value="0" checked>
+              <label class="form-check-label" for="gridRadios2">
+                User
+              </label>
+            </div>
+          </div>
+        </fieldset>
+          <div class="row mb-3">
+              <label for="username" class="col-sm-3 col-form-label">User Name</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="User Name" name="username" required>
+              </div>
+            </div>
+          
+          <div class="row mb-3">
+            <label for="password" class="col-sm-3 col-form-label" required>Password</label>
+            <div class="col-sm-9">
+              <input type="password" class="form-control" placeholder="Password" name="password">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary align-right position-end">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </div>
+ </div>
+
+  <!--User Signup Modal -->
+  <div class="modal fade" id="signupmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">User Signup</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           <!-- Signup form -->
+              <form action="/usrsignup" method="POST">
+                {% csrf_token %}
+                  <div class="row mb-3">
+                      <label for="username" class="col-sm-3 col-form-label">User Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" required placeholder="User Name ,Only digits and alphabets" name="username" >
+                      </div>
+                    </div>
+                  <div class="row mb-3">
+                      <label for="fname" class="col-sm-3 col-form-label">First Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" required placeholder="First Name" name="fname">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="lname" class="col-sm-3 col-form-label">Last Name</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" required placeholder="Last Name" name="lname">
+                      </div>
+                    </div>
+                  <div class="row mb-3">
+                    <label for="email" class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control" required placeholder="abc@xyz.com" name="email">
+                    </div>
+                  </div>
+                  <!-- <div class="row mb-3">
+                      <label for="mblno" class="col-sm-3 col-form-label">Mobile No</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" required placeholder="mobile no" name="mblno">
+                      </div>
+                    </div> -->
+                  <fieldset class="row mb-3">
+                      <legend class="col-form-label col-sm-2 pt-0">Category</legend>
+                      <div class="col-sm-10">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="category" id="gridRadios1" value="1" >
+                          <label class="form-check-label" for="gridRadios1">
+                            Organiser
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="category" id="gridRadios2" value="0" checked>
+                          <label class="form-check-label" for="gridRadios2">
+                            User
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  <div class="row mb-3">
+                    <label for="password" class="col-sm-3 col-form-label">Password</label>
+                    <div class="col-sm-9">
+                      <input type="password" class="form-control" required placeholder="Password atleast 8 in length" name="password">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                      <label for="cpassword" class="col-sm-3 col-form-label">Confirm Password</label>
+                      <div class="col-sm-9">
+                        <input type="password" class="form-control" required placeholder="Confirm Password" name="cpassword">
+                      </div>
+                    </div>
+                  <button type="submit" class="btn btn-primary align-right">Sign up</button>
+                </form>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+ <!-- for messages -->
+ <div>
+ {% if messages %}
+    {% for message in messages %}
+   <div {% if message.tags  %}  class="alert alert-warning"{% endif %}>
+      <strong><i>{{message}}</i></strong> 
+    </div>
+    {% endfor %}
+{% endif %}
+</div>
+
+{%block content%}
+
+{%endblock%}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
